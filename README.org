@@ -1,3 +1,6 @@
 * Invoice
-
 Minimal invoice LaTeX template
+
+| English                   | Spanish                   |
+|---------------------------+---------------------------|
+| [[./img/invoice-english.png]] | [[./img/invoice-english.png]] |
