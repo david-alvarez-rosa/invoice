@@ -144,6 +144,7 @@
 \newenvironment{invoicetable}{
   \vfill
   \setstretch{1.75}
+  \setlength{\tabcolsep}{8pt}
   \centering
   \begin{tabular}{lrrr}
     \toprule
