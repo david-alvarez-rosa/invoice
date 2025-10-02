@@ -108,7 +108,7 @@
 }
 
 \newcommand{\invoice}[3]{%
-  {\Huge \#1}\smallskip
+  {\Huge \##1}\smallskip
 
   \begin{minipage}[t]{0.38\textwidth}
     \textbf{#2}\\
