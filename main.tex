@@ -1,0 +1,44 @@
+\documentclass{invoice}
+\usepackage[english]{babel}
+
+\vatrate{21}
+\taxrate{30}
+\currency{USD}{\$}
+
+\begin{document}
+
+\makeheader{\today}
+
+\invoice{7}{Secure Networking}{
+  Secure networking demo and consultation delivered to The Tor Project, Inc.
+}
+\receiver{The Tor Project Inc.}{
+  390 West Street, Suite 3\\
+  Mansfield, 02048--1170, USA
+}{20-8096820}
+
+\begin{invoicetable}
+	\invoiceitem{Secure Networking Demo}{1}{650}
+	\invoiceitem{Consultation (2 hours)}{2}{200}
+	\invoiceitem{Travel expenses}{1}{150}
+\end{invoicetable}
+
+\conditions{Terms and Conditions: Payment is due within 15 days of the
+  invoice date unless otherwise agreed in writing. No additional
+  warranties are provided beyond those required by applicable law, and
+  the provider is not liable for any misuse of the products or
+  services.}
+
+\emitter{Richard Matthew Stallman}{Free Software Foundation\\
+  31 Milk St \# 960789\\
+  Boston, MA 02196 (USA)}{}
+\contact{
+  \href{mailto:rms@gnu.org}{rms@gnu.org}\\
+  +1 (210) 319-1828\\
+}
+\bank{
+  N26 --- NTSBESM1XXX\\
+	ES02 1563 2738 4539 0712 7127\\
+}
+
+\end{document}
