@@ -36,7 +36,8 @@
 \newcommand{\vattext}{VAT}
 \newcommand{\taxtext}{TAX}
 \newcommand{\contacttext}{Contact}
-\newcommand{\banktext}{Bank Details}
+\newcommand{\banktext}{Payment}
+\newcommand{\outputamount}[1]{\currencysymbol\num{#1}}
 
 \AtBeginDocument{%
   \ifthenelse{\equal{\languagename}{spanish}}{%
@@ -51,6 +52,7 @@
     \renewcommand{\taxtext}{IRPF}
     \renewcommand{\contacttext}{Contacto}
     \renewcommand{\banktext}{Pago}
+    \renewcommand{\outputamount}[1]{\num{#1}\currencysymbol}
     \sisetup{
       output-decimal-marker={,},
       group-separator={.},
@@ -66,14 +68,6 @@
   \newcommand{\currencysymbol}{#2}
 }
 
-\newcommand{\emitter}[3]{%
-  \begin{minipage}[t]{0.33\textwidth}
-    \textbf{#1}\\
-    #2\\
-    #3
-  \end{minipage}\hfill%
-}
-
 \newcommand{\receiver}[3]{%
   \begin{minipage}[t]{0.56\textwidth}
     \flushright
@@ -81,19 +75,6 @@
     #2\\
     #3
   \end{minipage}\hfill%
-}
-\newcommand{\contact}[1]{%
-  \begin{minipage}[t]{0.33\textwidth}
-    \textbf{\contacttext}\\
-    #1
-  \end{minipage}\hfill%
-}
-
-\newcommand{\bank}[1]{%
-  \begin{minipage}[t]{0.33\textwidth}
-    \textbf{\banktext}\\
-    #1
-  \end{minipage}%
 }
 
 \gdef\itemsubtotal{0}
@@ -137,10 +118,6 @@
   \end{minipage}\hfill%
 }
 
-\newcommand{\outputamount}[1]{
-  \num{#1}\currencysymbol
-}
-
 \newenvironment{invoicetable}{
   \vfill
   \setstretch{1.75}
@@ -154,10 +131,10 @@
     \bottomrule\\
     & \multicolumn{2}{r}{\subtotaltext} & \outputamount{\subtotal}\\
     \ifdefempty{\taxrate}{}{& & \taxtext{} (\taxrate\%) & \outputamount{\tax}\\}
-    \ifdefempty{\vatrate}{}{& & \vattext{} (\vatrate\%) & \outputamount{\vat}\\[2em]}
+    \ifdefempty{\vatrate}{}{& & \vattext{} (\vatrate\%) & \outputamount{\vat}\\}
+    \\[-1em]
     & & \textbf{TOTAL (\currencycode)} & \textbf{\outputamount{\total}}\\
   \end{tabular}
-
   \vfill
 }
 
@@ -168,4 +145,26 @@
 
 \newcommand{\conditions}[1]{%
   \textsl{#1}\\[2em]
+}
+
+\newcommand{\emitter}[3]{%
+  \begin{minipage}[t]{0.333\textwidth}
+    \textbf{#1}\\
+    #2\\
+    #3
+  \end{minipage}%
+}
+
+\newcommand{\contact}[1]{%
+  \begin{minipage}[t]{0.333\textwidth}
+    \textbf{\contacttext}\\
+    #1
+  \end{minipage}%
+}
+
+\newcommand{\bank}[1]{%
+  \begin{minipage}[t]{0.333\textwidth}
+    \textbf{\banktext}\\
+    #1
+  \end{minipage}%
 }
