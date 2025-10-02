@@ -75,31 +75,31 @@
   \end{minipage}\hfill%
 }
 
-\gdef\itemsubtotal{0}
-\gdef\subtotal{0}
-\gdef\vat{0}
-\gdef\tax{0}
-\gdef\total{0}
+\gdef\gitemsubtotal{0}
+\gdef\gsubtotal{0}
+\gdef\gvat{0}
+\gdef\gtax{0}
+\gdef\gtotal{0}
 
 \newcommand{\updateTotals}[2]{%
   \FPeval{\itemsubtotal}{#1 * #2}%
-  \global\let\itemsubtotal\itemsubtotal%
+  \global\let\gitemsubtotal\itemsubtotal%
   %
-  \FPeval{\subtotal}{\subtotal + \itemsubtotal}%
-  \global\let\subtotal\subtotal%
+  \FPeval{\subtotal}{\gsubtotal + \itemsubtotal}%
+  \global\let\gsubtotal\subtotal%
   %
   \ifdefempty{\vatrate}{}{%
     \FPeval{\vat}{\subtotal * (\vatrate / 100)}%
-    \global\let\vat\vat%
+    \global\let\gvat\vat%
   }%
   %
   \ifdefempty{\taxrate}{}{%
-    \FPeval{\tax}{\subtotal * (\tax / 100)}%
-    \global\let\tax\tax%
+    \FPeval{\tax}{\subtotal * (\taxrate / 100)}%
+    \global\let\gtax\tax%
   }%
   %
-  \FPeval{\total}{\subtotal + \tax - \vat}%
-  \global\let\total\total%
+  \FPeval{\total}{\subtotal + \vat - \tax}%
+  \global\let\gtotal\total%
 }
 
 \newcommand{\makeheader}[1]{%
@@ -127,18 +127,18 @@
     \midrule
 }{
     \bottomrule\\
-    & \multicolumn{2}{r}{\subtotaltext} & \outputamount{\subtotal}\\
-    \ifdefempty{\taxrate}{}{& & \taxtext{} (\taxrate\%) & \outputamount{\tax}\\}
-    \ifdefempty{\vatrate}{}{& & \vattext{} (\vatrate\%) & \outputamount{\vat}\\}
+    & \multicolumn{2}{r}{\subtotaltext} & \outputamount{\gsubtotal}\\
+    \ifdefempty{\taxrate}{}{& & \taxtext{} (\taxrate\%) & \outputamount{\gtax}\\}
+    \ifdefempty{\vatrate}{}{& & \vattext{} (\vatrate\%) & \outputamount{\gvat}\\}
     \\[-1em]
-    & & \textbf{TOTAL (\currencycode)} & \textbf{\outputamount{\total}}\\
+    & & \textbf{TOTAL (\currencycode)} & \textbf{\outputamount{\gtotal}}\\
   \end{tabular}
   \vfill
 }
 
 \newcommand{\invoiceitem}[3]{%
   \updateTotals{#2}{#3}%
-  #1 & #2 & \outputamount{#3} & \outputamount{\itemsubtotal}\\
+  #1 & #2 & \outputamount{#3} & \outputamount{\gitemsubtotal}\\
 }
 
 \newcommand{\conditions}[1]{%
