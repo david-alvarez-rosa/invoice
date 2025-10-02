@@ -29,7 +29,7 @@
 \newcommand{\quantitytext}{QTY.}
 \newcommand{\pricetext}{PRICE}
 \newcommand{\amounttext}{AMOUNT}
-\newcommand{\subtotaltext}{TAX BASE}
+\newcommand{\subtotaltext}{BEFORE TAX}
 \newcommand{\totaltext}{TOTAL}
 \newcommand{\vattext}{VAT}
 \newcommand{\taxtext}{TAX}
