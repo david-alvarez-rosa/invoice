@@ -1,14 +1,17 @@
+% -*- ispell-dictionary: "es_ES"; -*-
+
 \documentclass{invoice}
+\usepackage[spanish]{babel}
 
 \vatrate{21}
 \taxrate{15}
-\currency{USD}{\$}
+\currency{EUR}{\texteuro}
 
 \begin{document}
 
 \makeheader{\today}
 
-\invoice{5}{Secure Networking}{
+\invoice{7}{Secure Networking}{
   Secure networking demo and consultation delivered to The Tor Project, Inc.
 }
 \receiver{The Tor Project Inc.}{
@@ -22,11 +25,10 @@
 	\invoiceitem{Travel expenses}{1}{150}
 \end{invoicetable}
 
-\conditions{Terms and Conditions: Payment is due within 15 days of the
-  invoice date unless otherwise agreed in writing. No additional
-  warranties are provided beyond those required by applicable law, and
-  the provider is not liable for any misuse of the products or
-  services.}
+\conditions{Términos y Condiciones: Los productos/servicios ofrecidos no
+  incluyen garantías adicionales salvo las previstas por la legislación
+  vigente. El prestador no asume responsabilidad por usos indebidos de
+  los mismos. El pago se realizará en un plazo de 15 días.}
 
 \emitter{Richard Matthew Stallman}{Free Software Foundation\\
   31 Milk St \# 960789\\
