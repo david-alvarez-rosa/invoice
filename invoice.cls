@@ -34,8 +34,8 @@
 \newcommand{\vatrate}[1]{\renewcommand{\vatrate}{#1}}
 \newcommand{\taxrate}[1]{\renewcommand{\taxrate}{#1}}
 \newcommand{\currency}[2]{
-  \newcommand{\currencyCode}{#1}
-  \newcommand{\currencySymbol}{#1}
+  \newcommand{\currencycode}{#1}
+  \newcommand{\currencysymbol}{#2}
 }
 \newcommand{\emitter}[3]{%
   \setstretch{1.2}
@@ -126,6 +126,10 @@
   \end{minipage}\hfill%
 }
 
+\newcommand{\outputamount}[1]{
+  \num{#1}\currencysymbol
+}
+
 \newenvironment{invoicetable}[4]{
   \vfill\vfill
   \setstretch{1}
@@ -136,10 +140,10 @@
     \midrule
 }{
     \bottomrule\\
-    & \multicolumn{2}{r}{BASE IMPONIBLE} & \subtotal\currencySymbol\\
-    \ifdefempty{\taxrate}{}{& & IRPF (\taxrate\%) & \tax\currencySymbol\\}
-    \ifdefempty{\vatrate}{}{& & IVA (\vatrate\%) & \vat\currencySymbol\\[2em]}
-    & & \textbf{TOTAL (\currencyCode)} & \textbf{\total\currencySymbol}\\
+    & \multicolumn{2}{r}{BASE IMPONIBLE} & \outputamount{\subtotal}\\
+    \ifdefempty{\taxrate}{}{& & IRPF (\taxrate\%) & \outputamount{\tax}\\}
+    \ifdefempty{\vatrate}{}{& & IVA (\vatrate\%) & \outputamount{\vat}\\[2em]}
+    & & \textbf{TOTAL (\currencycode)} & \textbf{\outputamount{\total}}\\
   \end{tabular}
 
   \vfill\vfill
@@ -147,7 +151,7 @@
 
 \newcommand{\invoiceitem}[3]{%
   \updateTotals{#2}{#3}%
-  #1 & #2 & #3\currencySymbol & \itemsubtotal\currencySymbol\\
+  #1 & #2 & \outputamount{#3} & \outputamount{\itemsubtotal}\\
 }
 
 \newcommand{\conditions}[1]{%
