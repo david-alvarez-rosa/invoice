@@ -1,0 +1,3 @@
+* Invoice
+
+Minimal invoice LaTeX template
