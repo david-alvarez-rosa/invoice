@@ -24,12 +24,11 @@
 
 \pagestyle{empty}
 \setlength{\parindent}{0pt}
-\setstretch{1.2}
-\renewcommand{\arraystretch}{1.75}
+\setstretch{1.25}
 
 \newcommand{\titletext}{INVOICE}
 \newcommand{\descriptiontext}{DESCRIPTION}
-\newcommand{\quantitytext}{QTY}
+\newcommand{\quantitytext}{QTY.}
 \newcommand{\pricetext}{PRICE}
 \newcommand{\amounttext}{AMOUNT}
 \newcommand{\subtotaltext}{TAX BASE}
@@ -61,12 +60,13 @@
 
 \newcommand{\vatrate}[1]{\renewcommand{\vatrate}{#1}}
 \newcommand{\taxrate}[1]{\renewcommand{\taxrate}{#1}}
+
 \newcommand{\currency}[2]{
   \newcommand{\currencycode}{#1}
   \newcommand{\currencysymbol}{#2}
 }
+
 \newcommand{\emitter}[3]{%
-  \setstretch{1.2}
   \begin{minipage}[t]{0.33\textwidth}
     \textbf{#1}\\
     #2\\
@@ -88,6 +88,7 @@
     #1
   \end{minipage}\hfill%
 }
+
 \newcommand{\bank}[1]{%
   \begin{minipage}[t]{0.33\textwidth}
     \textbf{\banktext}\\
@@ -122,11 +123,9 @@
   \global\let\total\total%
 }
 
-
 \newcommand{\makeheader}[1]{%
   {\Huge\titletext}\\[1em]
-  {\large #1}\\[1em]
-  \vfill
+  {\large #1}\\[4em]
 }
 
 \newcommand{\invoice}[3]{%
@@ -142,9 +141,9 @@
   \num{#1}\currencysymbol
 }
 
-\newenvironment{invoicetable}[4]{
-  \vfill\vfill
-  \setstretch{1}
+\newenvironment{invoicetable}{
+  \vfill
+  \setstretch{1.75}
   \centering
   \begin{tabular}{lrrr}
     \toprule
@@ -152,13 +151,13 @@
     \midrule
 }{
     \bottomrule\\
-    & \multicolumn{2}{r}{BASE IMPONIBLE} & \outputamount{\subtotal}\\
-    \ifdefempty{\taxrate}{}{& & IRPF (\taxrate\%) & \outputamount{\tax}\\}
-    \ifdefempty{\vatrate}{}{& & IVA (\vatrate\%) & \outputamount{\vat}\\[2em]}
+    & \multicolumn{2}{r}{\subtotaltext} & \outputamount{\subtotal}\\
+    \ifdefempty{\taxrate}{}{& & \taxtext{} (\taxrate\%) & \outputamount{\tax}\\}
+    \ifdefempty{\vatrate}{}{& & \vattext{} (\vatrate\%) & \outputamount{\vat}\\[2em]}
     & & \textbf{TOTAL (\currencycode)} & \textbf{\outputamount{\total}}\\
   \end{tabular}
 
-  \vfill\vfill
+  \vfill
 }
 
 \newcommand{\invoiceitem}[3]{%
