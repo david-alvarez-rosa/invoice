@@ -8,6 +8,15 @@
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage[a4paper, margin=1in]{geometry}
+\usepackage{siunitx}
+\sisetup{
+  group-separator = {,},
+  group-minimum-digits = 4,
+  round-mode = places,
+  round-precision = 2,
+  detect-all
+}
+
 \usepackage[hidelinks]{hyperref}
 \usepackage[default]{lato}
 \usepackage{microtype}
@@ -90,23 +99,23 @@
 \gdef\total{0}
 
 \newcommand{\updateTotals}[2]{%
-  \FPeval{\itemsubtotal}{round(#1 * #2, 2)}%
+  \FPeval{\itemsubtotal}{#1 * #2}%
   \global\let\itemsubtotal\itemsubtotal%
   %
-  \FPeval{\subtotal}{round(\subtotal + \itemsubtotal, 2)}%
+  \FPeval{\subtotal}{\subtotal + \itemsubtotal}%
   \global\let\subtotal\subtotal%
   %
   \ifdefempty{\vatrate}{}{%
-    \FPeval{\vat}{round(\subtotal * (\vatrate / 100), 2)}%
+    \FPeval{\vat}{\subtotal * (\vatrate / 100)}%
     \global\let\vat\vat%
   }%
   %
   \ifdefempty{\taxrate}{}{%
-    \FPeval{\tax}{round(\subtotal * (\tax / 100), 2)}%
+    \FPeval{\tax}{\subtotal * (\tax / 100)}%
     \global\let\tax\tax%
   }%
   %
-  \FPeval{\total}{round(\subtotal + \tax - \vat, 2)}%
+  \FPeval{\total}{\subtotal + \tax - \vat}%
   \global\let\total\total%
 }
 
