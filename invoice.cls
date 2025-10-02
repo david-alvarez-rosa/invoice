@@ -1,3 +1,5 @@
+% -*- TeX-master: "./main.tex" -*-
+
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesClass{invoice}
 
@@ -17,28 +19,7 @@
 \setstretch{1.2}
 \renewcommand{\arraystretch}{1.75}
 
-\newcommand{\vatrate}[1]{\renewcommand{\vatrate}{#1}}
-\newcommand{\taxrate}[1]{\renewcommand{\taxrate}{#1}}
-\newcommand{\currency}[1]{\renewcommand{\currency}{#1}}
-% \newcommand{\description}[1]{\renewcommand{\description}{#1}}
-\newcommand{\emitter}[3]{%
-  \renewcommand{\emitter}{%
-    \textbf{#1}\\
-    #2\\
-    #3
-  }
-}
-\newcommand{\receiver}[3]{%
-  \renewcommand{\receiver}{%
-    \textbf{#1}\\
-    #2\\
-    #3
-  }
-}
-\newcommand{\contact}[1]{\renewcommand{\contact}{#1}}
-\newcommand{\bank}[1]{\renewcommand{\bank}{#1}}
-
-\newcommand{\headertext}{INVOICE}
+\newcommand{\titletext}{INVOICE}
 \newcommand{\descriptiontext}{DESCRIPTION}
 \newcommand{\quantitytext}{QTY}
 \newcommand{\pricetext}{PRICE}
@@ -47,10 +28,48 @@
 \newcommand{\totaltext}{TOTAL}
 \newcommand{\vattext}{VAT}
 \newcommand{\taxtext}{TAX}
+\newcommand{\contacttext}{Contact}
+\newcommand{\banktext}{Bank Details}
+
+\newcommand{\vatrate}[1]{\renewcommand{\vatrate}{#1}}
+\newcommand{\taxrate}[1]{\renewcommand{\taxrate}{#1}}
+\newcommand{\currency}[2]{
+  \newcommand{\currencyCode}{#1}
+  \newcommand{\currencySymbol}{#1}
+}
+\newcommand{\emitter}[3]{%
+  \setstretch{1.2}
+  \begin{minipage}[t]{0.33\textwidth}
+    \textbf{#1}\\
+    #2\\
+    #3
+  \end{minipage}\hfill%
+}
+
+\newcommand{\receiver}[3]{%
+  \begin{minipage}[t]{0.56\textwidth}
+    \flushright
+    \textbf{#1}\\
+    #2\\
+    #3
+  \end{minipage}\hfill%
+}
+\newcommand{\contact}[1]{%
+  \begin{minipage}[t]{0.33\textwidth}
+    \textbf{\contacttext}\\
+    #1
+  \end{minipage}\hfill%
+}
+\newcommand{\bank}[1]{%
+  \begin{minipage}[t]{0.33\textwidth}
+    \textbf{\banktext}\\
+    #1
+  \end{minipage}%
+}
 
 \AtBeginDocument{%
   \ifthenelse{\equal{\languagename}{spanish}}{%
-    \renewcommand{\headertext}{FACTURA}
+    \renewcommand{\titletext}{FACTURA}
     \renewcommand{\descriptiontext}{DESCRIPCIÓN}
     \renewcommand{\quantitytext}{CANT.}
     \renewcommand{\pricetext}{PRECIO}
@@ -59,9 +78,10 @@
     \renewcommand{\totaltext}{TOTAL}
     \renewcommand{\vattext}{IVA}
     \renewcommand{\taxtext}{IRPF}
+    \renewcommand{\contacttext}{Contacto}
+    \renewcommand{\banktext}{Pago}
   }{}
 }
-
 
 \gdef\itemsubtotal{0}
 \gdef\subtotal{0}
@@ -91,14 +111,19 @@
 }
 
 
-\newcommand{\header}[1]{%
-	{\Huge\headertext}\\[1em]
+\newcommand{\makeheader}[1]{%
+	{\Huge\titletext}\\[1em]
   {\large #1}\\[1em]
   \vfill
 }
 
-\newcommand{\invoicenumber}[1]{%
-		{\Huge \#1}\smallskip
+\newcommand{\invoice}[3]{%
+	{\Huge \#1}\smallskip
+
+  \begin{minipage}[t]{0.38\textwidth}
+    \textbf{#2}\\
+    #3
+  \end{minipage}\hfill%
 }
 
 \newenvironment{invoicetable}[4]{
@@ -111,10 +136,10 @@
     \midrule
 }{
     \bottomrule\\
-		& \multicolumn{2}{r}{BASE IMPONIBLE} & \subtotal\currency\\
-		\ifdefempty{\taxrate}{}{& & IRPF (\taxrate\%) & \tax\currency\\}
-		\ifdefempty{\vatrate}{}{& & IVA (\vatrate\%) & \vat\currency\\[2em]}
-		& & \textbf{TOTAL} & \textbf{\total\currency}\\
+		& \multicolumn{2}{r}{BASE IMPONIBLE} & \subtotal\currencySymbol\\
+		\ifdefempty{\taxrate}{}{& & IRPF (\taxrate\%) & \tax\currencySymbol\\}
+		\ifdefempty{\vatrate}{}{& & IVA (\vatrate\%) & \vat\currencySymbol\\[2em]}
+		& & \textbf{TOTAL (\currencyCode)} & \textbf{\total\currencySymbol}\\
 	\end{tabular}
 
   \vfill\vfill
@@ -122,7 +147,7 @@
 
 \newcommand{\invoiceitem}[3]{%
   \updateTotals{#2}{#3}%
-  #1 & #2 &	#3\currency & \itemsubtotal\currency\\
+  #1 & #2 &	#3\currencySymbol & \itemsubtotal\currencySymbol\\
 }
 
 \newcommand{\conditions}[1]{%
