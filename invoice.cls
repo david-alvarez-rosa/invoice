@@ -90,35 +90,35 @@
 \gdef\total{0}
 
 \newcommand{\updateTotals}[2]{%
-	\FPeval{\itemsubtotal}{round(#1 * #2, 2)}%
-	\global\let\itemsubtotal\itemsubtotal%
+  \FPeval{\itemsubtotal}{round(#1 * #2, 2)}%
+  \global\let\itemsubtotal\itemsubtotal%
   %
-	\FPeval{\subtotal}{round(\subtotal + \itemsubtotal, 2)}%
-	\global\let\subtotal\subtotal%
+  \FPeval{\subtotal}{round(\subtotal + \itemsubtotal, 2)}%
+  \global\let\subtotal\subtotal%
   %
-	\ifdefempty{\vatrate}{}{%
-		\FPeval{\vat}{round(\subtotal * (\vatrate / 100), 2)}%
-		\global\let\vat\vat%
-	}%
-  %
-	\ifdefempty{\taxrate}{}{%
-		\FPeval{\tax}{round(\subtotal * (\tax / 100), 2)}%
-		\global\let\tax\tax%
+  \ifdefempty{\vatrate}{}{%
+    \FPeval{\vat}{round(\subtotal * (\vatrate / 100), 2)}%
+    \global\let\vat\vat%
   }%
   %
-	\FPeval{\total}{round(\subtotal + \tax - \vat, 2)}%
-	\global\let\total\total%
+  \ifdefempty{\taxrate}{}{%
+    \FPeval{\tax}{round(\subtotal * (\tax / 100), 2)}%
+    \global\let\tax\tax%
+  }%
+  %
+  \FPeval{\total}{round(\subtotal + \tax - \vat, 2)}%
+  \global\let\total\total%
 }
 
 
 \newcommand{\makeheader}[1]{%
-	{\Huge\titletext}\\[1em]
+  {\Huge\titletext}\\[1em]
   {\large #1}\\[1em]
   \vfill
 }
 
 \newcommand{\invoice}[3]{%
-	{\Huge \#1}\smallskip
+  {\Huge \#1}\smallskip
 
   \begin{minipage}[t]{0.38\textwidth}
     \textbf{#2}\\
@@ -136,18 +136,18 @@
     \midrule
 }{
     \bottomrule\\
-		& \multicolumn{2}{r}{BASE IMPONIBLE} & \subtotal\currencySymbol\\
-		\ifdefempty{\taxrate}{}{& & IRPF (\taxrate\%) & \tax\currencySymbol\\}
-		\ifdefempty{\vatrate}{}{& & IVA (\vatrate\%) & \vat\currencySymbol\\[2em]}
-		& & \textbf{TOTAL (\currencyCode)} & \textbf{\total\currencySymbol}\\
-	\end{tabular}
+    & \multicolumn{2}{r}{BASE IMPONIBLE} & \subtotal\currencySymbol\\
+    \ifdefempty{\taxrate}{}{& & IRPF (\taxrate\%) & \tax\currencySymbol\\}
+    \ifdefempty{\vatrate}{}{& & IVA (\vatrate\%) & \vat\currencySymbol\\[2em]}
+    & & \textbf{TOTAL (\currencyCode)} & \textbf{\total\currencySymbol}\\
+  \end{tabular}
 
   \vfill\vfill
 }
 
 \newcommand{\invoiceitem}[3]{%
   \updateTotals{#2}{#3}%
-  #1 & #2 &	#3\currencySymbol & \itemsubtotal\currencySymbol\\
+  #1 & #2 & #3\currencySymbol & \itemsubtotal\currencySymbol\\
 }
 
 \newcommand{\conditions}[1]{%
