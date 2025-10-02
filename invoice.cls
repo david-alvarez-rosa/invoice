@@ -1,5 +1,3 @@
-% -*- TeX-master: "./main.tex" -*-
-
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesClass{invoice}
 
