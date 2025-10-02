@@ -8,14 +8,13 @@
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage[a4paper, margin=1in]{geometry}
-\usepackage{siunitx}
-\sisetup{
-  group-separator = {,},
-  group-minimum-digits = 4,
-  round-mode = places,
-  round-precision = 2,
-  detect-all
-}
+\usepackage[
+  round-mode=places,
+  round-precision=2,
+  detect-all,
+  group-minimum-digits=4,
+  group-separator={,},
+]{siunitx}
 
 \usepackage[hidelinks]{hyperref}
 \usepackage[default]{lato}
@@ -39,6 +38,26 @@
 \newcommand{\taxtext}{TAX}
 \newcommand{\contacttext}{Contact}
 \newcommand{\banktext}{Bank Details}
+
+\AtBeginDocument{%
+  \ifthenelse{\equal{\languagename}{spanish}}{%
+    \renewcommand{\titletext}{FACTURA}
+    \renewcommand{\descriptiontext}{DESCRIPCIÓN}
+    \renewcommand{\quantitytext}{CANT.}
+    \renewcommand{\pricetext}{PRECIO}
+    \renewcommand{\amounttext}{IMPORTE}
+    \renewcommand{\subtotaltext}{BASE IMPONIBLE}
+    \renewcommand{\totaltext}{TOTAL}
+    \renewcommand{\vattext}{IVA}
+    \renewcommand{\taxtext}{IRPF}
+    \renewcommand{\contacttext}{Contacto}
+    \renewcommand{\banktext}{Pago}
+    \sisetup{
+      output-decimal-marker={,},
+      group-separator={.},
+    }
+  }{}
+}
 
 \newcommand{\vatrate}[1]{\renewcommand{\vatrate}{#1}}
 \newcommand{\taxrate}[1]{\renewcommand{\taxrate}{#1}}
@@ -74,22 +93,6 @@
     \textbf{\banktext}\\
     #1
   \end{minipage}%
-}
-
-\AtBeginDocument{%
-  \ifthenelse{\equal{\languagename}{spanish}}{%
-    \renewcommand{\titletext}{FACTURA}
-    \renewcommand{\descriptiontext}{DESCRIPCIÓN}
-    \renewcommand{\quantitytext}{CANT.}
-    \renewcommand{\pricetext}{PRECIO}
-    \renewcommand{\amounttext}{IMPORTE}
-    \renewcommand{\subtotaltext}{BASE IMPONIBLE}
-    \renewcommand{\totaltext}{TOTAL}
-    \renewcommand{\vattext}{IVA}
-    \renewcommand{\taxtext}{IRPF}
-    \renewcommand{\contacttext}{Contacto}
-    \renewcommand{\banktext}{Pago}
-  }{}
 }
 
 \gdef\itemsubtotal{0}
