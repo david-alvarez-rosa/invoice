@@ -110,7 +110,7 @@ Support for other languages can be easily added if needed
 
 ** Acknowledgements
 This project is based on a template I downloaded some time ago.
-Unfortunately, I have not been able to identify the original author--if
+Unfortunately, I have not been able to identify the original author---if
 you are or know the creator, please let me know so I can give proper
 credit.
 
