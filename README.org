@@ -4,3 +4,10 @@ Minimal invoice LaTeX template
 | English                   | Spanish                   |
 |---------------------------+---------------------------|
 | [[./img/invoice-english.png]] | [[./img/invoice-spanish.png]] |
+
+
+as
+
+[[./img/invoice-english.png]]
+
+ [[./img/invoice-spanish.png]]
