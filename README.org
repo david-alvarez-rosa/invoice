@@ -1,6 +1,6 @@
 * Invoice
-A minimalist LaTeX template for creating clean, professional invoices
-with ease.
+A minimalist LaTeX template for effortlessly typesetting clean,
+professional invoices.
 
 | English                   | Spanish                   |
 |---------------------------+---------------------------|
