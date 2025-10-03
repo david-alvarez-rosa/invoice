@@ -6,6 +6,15 @@ with ease.
 |---------------------------+---------------------------|
 | [[./img/invoice-english.png]] | [[./img/invoice-spanish.png]] |
 
+** Installation
+Download =invoice.cls= file from [[https://github.com/david-alvarez-rosa/invoice/releases][releases]] and place it in the same
+directory as your LaTeX document
+#+begin_src latex
+  \documentclass{invoice}
+#+end_src
+
+For latest mainline version, use [[file:invoice.cls][invoice.cls]].
+
 ** Usage
 Specify tax rates and the currency (code and symbol)
 #+begin_src latex
@@ -67,6 +76,47 @@ information
     ES02 1563 2738 4539 0712 7127\\
   }
 #+end_src
+
+** Localization
+Currently, only English and Spanish are supported.  For Spanish, simply
+load the =babel= package:
+#+begin_src latex
+  \usepackage[spanish]{babel}
+#+end_src
+
+Support for other languages can be easily added if needed
+#+begin_src latex
+  \AtBeginDocument{%
+    \ifthenelse{\equal{\languagename}{spanish}}{%
+      \renewcommand{\titletext}{FACTURA}
+      \renewcommand{\descriptiontext}{DESCRIPCIÓN}
+      \renewcommand{\quantitytext}{CANT.}
+      \renewcommand{\pricetext}{PRECIO}
+      \renewcommand{\amounttext}{IMPORTE}
+      \renewcommand{\subtotaltext}{BASE IMPONIBLE}
+      \renewcommand{\totaltext}{TOTAL}
+      \renewcommand{\vattext}{IVA}
+      \renewcommand{\taxtext}{IRPF}
+      \renewcommand{\contacttext}{Contacto}
+      \renewcommand{\banktext}{Pago}
+      \renewcommand{\outputamount}[1]{\num{#1}\currencysymbol}
+      \sisetup{
+        output-decimal-marker={,},
+        group-separator={.},
+      }
+    }{}
+  }
+#+end_src
+
+** Acknowledgements
+This project is based on a template I downloaded some time ago.
+Unfortunately, I have not been able to identify the original author--if
+you are or know the creator, please let me know so I can give proper
+credit.
+
+I have simplified the code, use more standard LaTeX, improved
+typesetting aesthetics, added =booktabs= support, and integrated Spanish
+translation with =babel=.
 
 ** Contributions
 Suggestions or improvements? Raise a pull request!
