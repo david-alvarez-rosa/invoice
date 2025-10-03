@@ -13,7 +13,6 @@
   group-minimum-digits=4,
   group-separator={,},
 ]{siunitx}
-
 \usepackage[hidelinks]{hyperref}
 \usepackage[default]{lato}
 \usepackage{microtype}

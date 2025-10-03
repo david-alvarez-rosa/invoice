@@ -79,7 +79,7 @@ information
 
 ** Localization
 Currently, only English and Spanish are supported.  For Spanish, simply
-load the =babel= package:
+load the =babel= package
 #+begin_src latex
   \usepackage[spanish]{babel}
 #+end_src
