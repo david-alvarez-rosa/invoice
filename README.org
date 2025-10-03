@@ -1,13 +1,69 @@
 * Invoice
-Minimal invoice LaTeX template
+A minimalistic LaTeX template for creating clean, professional invoices
+with ease.
 
 | English                   | Spanish                   |
 |---------------------------+---------------------------|
 | [[./img/invoice-english.png]] | [[./img/invoice-spanish.png]] |
 
+** Usage
+Specify tax rates and the currency (code and symbol)
+#+begin_src latex
+  \vatrate{21}
+  \taxrate{15}
+  \currency{USD}{\$}
+#+end_src
 
-as
+Insert the invoice header with date
+#+begin_src latex
+  \makeheader{\today}
+#+end_src
 
-[[./img/invoice-english.png]]
+Define the invoice number, title and description
+#+begin_src latex
+  \invoice{5}{Secure Networking}{
+    Secure networking demo and consultation delivered to The Tor Project, Inc.
+  }
+#+end_src
 
- [[./img/invoice-spanish.png]]
+Specify the receiver name, address and EIN
+#+begin_src latex
+  \receiver{The Tor Project Inc.}{
+    390 West Street, Suite 3\\
+    Mansfield, 02048--1170, USA
+  }{20-8096820}
+#+end_src
+
+List invoice items name, quantity and price
+#+begin_src latex
+  \begin{invoicetable}
+    \invoiceitem{Secure Networking Demo}{1}{650}
+    \invoiceitem{Consultation (2 hours)}{2}{200}
+    \invoiceitem{Travel expenses}{1}{150}
+  \end{invoicetable}
+#+end_src
+
+Optionally, specify any payment terms or conditions
+#+begin_src latex
+  \conditions{Terms and Conditions: Payment is due within 15 days of the
+    invoice date unless otherwise agreed in writing. No additional
+    warranties are provided beyond those required by applicable law, and
+    the provider is not liable for any misuse of the products or
+    services.}
+#+end_src
+
+Include your details as the issuer, along with contact and payment
+information
+#+begin_src latex
+  \emitter{Richard Matthew Stallman}{Free Software Foundation\\
+    31 Milk St \# 960789\\
+    Boston, MA 02196 (USA)}{}
+  \contact{
+    \href{mailto:rms@gnu.org}{rms@gnu.org}\\
+    +1 (210) 319-1828\\
+  }
+  \bank{
+    N26 --- NTSBESM1XXX\\
+    ES02 1563 2738 4539 0712 7127\\
+  }
+#+end_src
