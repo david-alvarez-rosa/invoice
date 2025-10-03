@@ -1,5 +1,5 @@
 * Invoice
-A minimalistic LaTeX template for creating clean, professional invoices
+A minimalist LaTeX template for creating clean, professional invoices
 with ease.
 
 | English                   | Spanish                   |
@@ -67,3 +67,6 @@ information
     ES02 1563 2738 4539 0712 7127\\
   }
 #+end_src
+
+** Contributions
+Suggestions or improvements? Raise a pull request!
