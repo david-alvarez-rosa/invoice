@@ -1,4 +1,4 @@
-* Minimalist LaTeX Invoice
+* Minimalist Invoice
 A minimalist LaTeX template for effortlessly typesetting clean,
 professional invoices.
 
