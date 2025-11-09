@@ -16,7 +16,7 @@ directory as your LaTeX document
 For latest mainline version, use [[file:invoice.cls][invoice.cls]].
 
 ** Usage
-Specify tax rates and the currency (code and symbol)
+Specify tax rates (optimal) and the currency (code and symbol)
 #+begin_src latex
   \vatrate{21}
   \taxrate{15}

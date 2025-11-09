@@ -57,8 +57,10 @@
   }{}
 }
 
-\newcommand{\vatrate}[1]{\renewcommand{\vatrate}{#1}}
-\newcommand{\taxrate}[1]{\renewcommand{\taxrate}{#1}}
+\newcommand{\vatrateval}{}
+\newcommand{\vatrate}[1]{\renewcommand{\vatrateval}{#1}}
+\newcommand{\taxrateval}{}
+\newcommand{\taxrate}[1]{\renewcommand{\taxrateval}{#1}}
 
 \newcommand{\currency}[2]{
   \newcommand{\currencycode}{#1}
@@ -87,17 +89,17 @@
   \FPeval{\subtotal}{\gsubtotal + \itemsubtotal}%
   \global\let\gsubtotal\subtotal%
   %
-  \ifdefempty{\vatrate}{}{%
-    \FPeval{\vat}{\subtotal * (\vatrate / 100)}%
+  \ifdefempty{\vatrateval}{}{%
+    \FPeval{\vat}{\subtotal * (\vatrateval / 100)}%
     \global\let\gvat\vat%
   }%
   %
-  \ifdefempty{\taxrate}{}{%
-    \FPeval{\tax}{\subtotal * (\taxrate / 100)}%
+  \ifdefempty{\taxrateval}{}{%
+    \FPeval{\tax}{\subtotal * (\taxrateval / 100)}%
     \global\let\gtax\tax%
   }%
   %
-  \FPeval{\total}{\subtotal + \vat - \tax}%
+  \FPeval{\total}{\gsubtotal + \gvat - \gtax}%
   \global\let\gtotal\total%
 }
 
@@ -127,8 +129,8 @@
 }{
     \bottomrule\\
     & \multicolumn{2}{r}{\subtotaltext} & \outputamount{\gsubtotal}\\
-    \ifdefempty{\taxrate}{}{& & \taxtext{} (\taxrate\%) & \outputamount{\gtax}\\}
-    \ifdefempty{\vatrate}{}{& & \vattext{} (\vatrate\%) & \outputamount{\gvat}\\}
+    \ifdefempty{\taxrateval}{}{& & \taxtext{} (\taxrateval\%) & \outputamount{\gtax}\\}
+    \ifdefempty{\vatrateval}{}{& & \vattext{} (\vatrateval\%) & \outputamount{\gvat}\\}
     \\[-1em]
     & & \textbf{TOTAL (\currencycode)} & \textbf{\outputamount{\gtotal}}\\
   \end{tabular}
